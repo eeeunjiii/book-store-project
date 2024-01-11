@@ -6,12 +6,12 @@
 ### ERD
 <img width="503" alt="ERD" src="https://github.com/eeeunjiii/book-store-project/assets/91798213/9fc75e59-3724-4565-a647-d6096f80797c">
 
-Order ↔ Member: N:1 양방향 (Order에 member.id FK)
-Cart ↔ Member: 1:1 양방향 (Cart에 member.id FK)
-CartItem → Cart: N:1 단방향 (CartItem에 cart.id FK)
-OrderItem → Order: N:1 단방향 (OrderItem에 order.id FK)
-CartItem → Item: 1:1 단방향 (CartItem에 item.id FK)
-OrderItem → Item: 1:1 단뱡향 (OrderItem에 item.id FK)
+- Order ↔ Member: N:1 양방향 (Order에 member.id FK)
+- Cart ↔ Member: 1:1 양방향 (Cart에 member.id FK)
+- CartItem → Cart: N:1 단방향 (CartItem에 cart.id FK)
+- OrderItem → Order: N:1 단방향 (OrderItem에 order.id FK)
+- CartItem → Item: 1:1 단방향 (CartItem에 item.id FK)
+- OrderItem → Item: 1:1 단뱡향 (OrderItem에 item.id FK)
 ---
 
 ### 프로젝트 구조
