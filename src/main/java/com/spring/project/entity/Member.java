@@ -1,13 +1,19 @@
 package com.spring.project.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Table(name = "Member")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
+
     @Id
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -26,4 +32,14 @@ public class Member {
     @OneToOne(mappedBy = "member")
     private Cart cart;
 
+    @Builder
+    public Member(String email, String name, String password, String address,
+                  String phone_number, int point){
+        this.email=email;
+        this.name=name;
+        this.password=password;
+        this.address=address;
+        this.phone_number=phone_number;
+        this.point=point;
+    }
 }
