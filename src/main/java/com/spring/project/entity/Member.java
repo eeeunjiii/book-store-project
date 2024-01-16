@@ -1,5 +1,6 @@
 package com.spring.project.entity;
 
+import com.spring.project.constant.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class Member {
     private String address;
     private String phone_number;
     private int point;
+    private Role role;
 
     @OneToMany
     private List<Order> orders=new ArrayList<>(); // Order와의 양방향 매핑을 위해 추가
@@ -34,12 +36,13 @@ public class Member {
 
     @Builder
     public Member(String email, String name, String password, String address,
-                  String phone_number, int point){
+                  String phone_number, int point, Role role){
         this.email=email;
         this.name=name;
         this.password=password;
         this.address=address;
         this.phone_number=phone_number;
         this.point=point;
+        this.role=role;
     }
 }
