@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name = "Cart")
@@ -21,6 +24,9 @@ public class Cart {
     @OneToOne
     @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)
     private Member member;
+
+    @OneToMany(mappedBy = "CartItem")
+    private List<CartItem> cartItems=new ArrayList<>();
 
     @Builder
     public Cart(int total_price, Member member){
