@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "OrderItem")
 public class OrderItem {
@@ -27,11 +29,12 @@ public class OrderItem {
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
-    @Builder
-    public OrderItem(int order_count, int price, Order order, Item item){
+    /*@Builder
+    public OrderItem(Long id, int order_count, int price, Order order, Item item){
+        this.id=id;
         this.order_count=order_count;
         this.price=price;
         this.order=order;
         this.item=item;
-    }
+    }*/
 }

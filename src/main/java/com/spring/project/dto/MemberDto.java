@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDto {
-
+    private Long id;
     private String email;
     private String name;
     private String password;
@@ -16,13 +16,15 @@ public class MemberDto {
     private String phone_number;
     private int point;
 
-    public Member toEntity(){
-        return Member.builder()
-                .email(email)
-                .name(name)
-                .password(password)
-                .address(address)
-                .phone_number(phone_number)
-                .build();
+    @Builder
+    public MemberDto(Long id, String email, String name, String password, String address, String phone_number, int point) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.point = point;
     }
+
 }

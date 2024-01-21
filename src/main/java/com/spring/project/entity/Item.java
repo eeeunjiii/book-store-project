@@ -24,7 +24,8 @@ public class Item {
     private int stock;
 
     @Builder
-    public Item(String title, String author, String publisher, int publish_year, int price, int stock){
+    public Item(Long id, String title, String author, String publisher, int publish_year, int price, int stock){
+        this.id=id;
         this.title=title;
         this.author=author;
         this.publisher=publisher;

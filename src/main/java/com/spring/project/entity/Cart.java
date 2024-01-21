@@ -1,16 +1,14 @@
 package com.spring.project.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "Cart")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cart {
@@ -28,9 +26,10 @@ public class Cart {
     @OneToMany(mappedBy = "CartItem")
     private List<CartItem> cartItems=new ArrayList<>();
 
-    @Builder
-    public Cart(int total_price, Member member){
+    /*@Builder
+    public Cart(Long id, int total_price, Member member){
+        this.id=id;
         this.total_price=total_price;
         this.member=member;
-    }
+    }*/
 }

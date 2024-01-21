@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "CartItem")
 public class CartItem {
@@ -25,10 +27,11 @@ public class CartItem {
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;
 
-    @Builder
-    public CartItem(int cart_count, Item item, Cart cart){
+    /*@Builder
+    public CartItem(Long id, int cart_count, Item item, Cart cart){
+        this.id=id;
         this.cart_count=cart_count;
         this.item=item;
         this.cart=cart;
-    }
+    }*/
 }

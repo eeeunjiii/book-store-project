@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemDto {
-
+    private Long id;
     private String title;
     private String author;
     private String publisher;
@@ -18,6 +18,7 @@ public class ItemDto {
 
     public Item toEntity(){
         return Item.builder()
+                .id(id)
                 .title(title)
                 .author(author)
                 .publisher(publisher)

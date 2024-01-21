@@ -1,6 +1,7 @@
 package com.spring.project.entity;
 
 import com.spring.project.constant.Role;
+import com.spring.project.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "Member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -34,9 +36,10 @@ public class Member {
     @OneToOne(mappedBy = "member")
     private Cart cart;
 
-    @Builder
-    public Member(String email, String name, String password, String address,
+    /*@Builder
+    public Member(Long id, String email, String name, String password, String address,
                   String phone_number, int point, Role role){
+        this.id=id;
         this.email=email;
         this.name=name;
         this.password=password;
@@ -44,5 +47,5 @@ public class Member {
         this.phone_number=phone_number;
         this.point=point;
         this.role=role;
-    }
+    }*/
 }

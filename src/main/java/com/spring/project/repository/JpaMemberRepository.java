@@ -1,5 +1,6 @@
 package com.spring.project.repository;
 
+import com.spring.project.dto.MemberDto;
 import com.spring.project.entity.Member;
 import jakarta.persistence.EntityManager;
 

@@ -10,13 +10,14 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class CartItemDto {
-
+    private Long id;
     private int cart_count;
     private Item item;
     private Cart cart;
 
     public CartItem toEntity(){
         return CartItem.builder()
+                .id(id)
                 .cart_count(cart_count)
                 .item(item)
                 .cart(cart)

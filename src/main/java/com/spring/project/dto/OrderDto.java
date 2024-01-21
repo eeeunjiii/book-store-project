@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderDto {
-
+    private Long id;
     private int total_price;
     private DeliveryStatus delivery_status;
     private LocalDate order_date;
@@ -20,6 +20,7 @@ public class OrderDto {
 
     public Order toEntity(){
         return Order.builder()
+                .id(id)
                 .total_price(total_price)
                 .delivery_status(delivery_status)
                 .order_date(order_date)

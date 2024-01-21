@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "Order")
 public class Order {
@@ -34,11 +36,12 @@ public class Order {
     @OneToMany
     private List<OrderItem> orderItems=new ArrayList<>();
 
-    @Builder
-    public Order(int total_price, DeliveryStatus delivery_status, LocalDate order_date, Member member){
+    /*@Builder
+    public Order(Long id, int total_price, DeliveryStatus delivery_status, LocalDate order_date, Member member){
+        this.id=id;
         this.total_price=total_price;
         this.delivery_status=delivery_status;
         this.order_date=order_date;
         this.member=member;
-    }
+    }*/
 }
