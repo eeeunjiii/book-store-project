@@ -13,11 +13,11 @@ public class CartDto {
     private int total_price;
     private Member member;
 
-    public Cart toEntity(){
+    /*public Cart toEntity(){
         return Cart.builder()
                 .id(id)
                 .total_price(total_price)
                 .member(member)
                 .build();
-    }
+    }*/
 }

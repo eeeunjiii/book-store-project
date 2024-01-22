@@ -18,7 +18,7 @@ public class OrderDto {
     private LocalDate order_date;
     private Member member;
 
-    public Order toEntity(){
+    /*public Order toEntity(){
         return Order.builder()
                 .id(id)
                 .total_price(total_price)
@@ -26,5 +26,5 @@ public class OrderDto {
                 .order_date(order_date)
                 .member(member)
                 .build();
-    }
+    }*/
 }

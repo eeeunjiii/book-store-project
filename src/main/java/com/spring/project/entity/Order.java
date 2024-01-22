@@ -33,7 +33,7 @@ public class Order {
     @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)
     private Member member;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems=new ArrayList<>();
 
     /*@Builder

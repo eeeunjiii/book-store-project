@@ -3,30 +3,35 @@ package com.spring.project.repository;
 import com.spring.project.dto.MemberDto;
 import com.spring.project.entity.Member;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class MemoryMemberRepository implements MemberRepository{
     private static Long id=0L;
+    private static Map<Long, Member> store=new HashMap<>();
 
     @Override
     public Member save(Member member) {
-        
-        return null;
+        member.setId(++id);
+        store.put(member.getId(), member);
+        return member;
     }
 
     @Override
     public Optional<Member> findByEmail(String email) {
-        return Optional.empty();
+        return store.values().stream()
+                .filter(member -> member.getEmail().equals(email))
+                .findAny();
     }
 
     @Override
     public Optional<Member> findById(Long id) {
-        return Optional.empty();
+        return store.values().stream()
+                .filter(member -> member.getId().equals(id))
+                .findAny();
     }
 
     @Override
     public List<Member> findAll() {
-        return null;
+        return new ArrayList<>(store.values());
     }
 }

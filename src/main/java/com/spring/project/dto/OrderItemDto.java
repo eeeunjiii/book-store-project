@@ -16,7 +16,7 @@ public class OrderItemDto {
     private Order order;
     private Item item;
 
-    private OrderItem toEntity(){
+    /*private OrderItem toEntity(){
         return OrderItem.builder()
                 .id(id)
                 .order_count(order_count)
@@ -24,5 +24,5 @@ public class OrderItemDto {
                 .order(order)
                 .item(item)
                 .build();
-    }
+    }*/
 }

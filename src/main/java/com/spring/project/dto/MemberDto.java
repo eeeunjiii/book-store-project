@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+//@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDto {
     private Long id;
     private String email;
@@ -27,4 +27,14 @@ public class MemberDto {
         this.point = point;
     }
 
+    /*public Member toEntity(){
+        return Member.builder()
+                .id(id)
+                .email(email)
+                .name(name)
+                .password(password)
+                .address(address)
+                .phone_number(phone_number)
+                .build();
+    }*/
 }

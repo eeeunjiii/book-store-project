@@ -30,7 +30,7 @@ public class Member {
     private int point;
     private Role role;
 
-    @OneToMany
+    @OneToMany(mappedBy = "member")
     private List<Order> orders=new ArrayList<>(); // Order와의 양방향 매핑을 위해 추가
 
     @OneToOne(mappedBy = "member")

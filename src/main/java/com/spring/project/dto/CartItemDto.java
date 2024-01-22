@@ -15,12 +15,12 @@ public class CartItemDto {
     private Item item;
     private Cart cart;
 
-    public CartItem toEntity(){
+    /*public CartItem toEntity(){
         return CartItem.builder()
                 .id(id)
                 .cart_count(cart_count)
                 .item(item)
                 .cart(cart)
                 .build();
-    }
+    }*/
 }
