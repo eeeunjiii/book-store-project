@@ -2,6 +2,7 @@ package com.spring.project;
 
 import com.spring.project.repository.JpaMemberRepository;
 import com.spring.project.repository.MemberRepository;
+import com.spring.project.repository.MemoryMemberRepository;
 import com.spring.project.service.MemberService;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository(){
-        return new JpaMemberRepository(em);
+        return new MemoryMemberRepository();
     }
 
     @Bean

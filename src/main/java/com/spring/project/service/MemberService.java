@@ -32,7 +32,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    public Optional<Member> findMemberOne(Member member){
-        return memberRepository.findById(member.getId());
+    public Optional<Member> findMemberOne(Long memberId){
+        return memberRepository.findById(memberId);
     }
 }

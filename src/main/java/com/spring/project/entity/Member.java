@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @Table(name = "Member")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString
 public class Member {
 
     @Id
