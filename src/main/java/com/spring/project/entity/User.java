@@ -1,7 +1,6 @@
 package com.spring.project.entity;
 
 import com.spring.project.constant.Role;
-import com.spring.project.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,14 +9,11 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
-@Table(name = "Member")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
-public class Member {
+public class User {
 
     @Id
-    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -27,26 +23,28 @@ public class Member {
     private String name;
     private String password;
     private String address;
-    private String phone_number;
+    private String phoneNum;
     private int point;
+
+//    @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "user")
     private List<Order> orders=new ArrayList<>(); // Order와의 양방향 매핑을 위해 추가
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "user")
     private Cart cart;
 
-    /*@Builder
-    public Member(Long id, String email, String name, String password, String address,
-                  String phone_number, int point, Role role){
+    @Builder
+    public User(Long id, String email, String name, String password, String address,
+                String phoneNum, int point, Role role){
         this.id=id;
         this.email=email;
         this.name=name;
         this.password=password;
         this.address=address;
-        this.phone_number=phone_number;
+        this.phoneNum = phoneNum;
         this.point=point;
         this.role=role;
-    }*/
+    }
 }

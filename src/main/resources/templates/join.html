@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <title>Sign in</title>
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h1>Sign in</h1>
+        </div>
+
+        <form th:action method="post" th:object="${joinDto}">
+
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+            </div>
+
+            <div>
+                <label for="email" class="form-label">이메일</label>
+                <input type="text" id="email" th:field="*{email}"
+                       th:errorclass="field-error" class="form-control">
+            </div>
+            <div class="field-error" th:errors="*{email}">
+                이메일 필수 입력 오류
+            </div>
+            <br/>
+
+            <div>
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" id="password" th:field="*{password}"
+                       th:errorclass="field-error" class="form-control">
+            </div>
+            <div id="passwordHelpBlock" class="form-text">
+                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+            </div>
+            <div class="field-error" th:errors="*{password}">
+                비밀번호 필수 입력 오류
+            </div>
+            <br/>
+
+            <div>
+                <label for="checkPassword" class="form-label">비밀번호 확인</label>
+                <input type="password" id="checkPassword" th:field="*{checkPassword}"
+                       th:errorclass="field-error" class="form-control">
+            </div>
+            <div class="field-error" th:errors="*{checkPassword}">
+                비밀번호 확인 필수 입력 오류
+            </div>
+            <br/>
+
+            <div>
+                <label for="name" class="form-label">이름</label>
+                <input type="text" id="name" th:field="*{name}"
+                       th:errorclass="field-error" class="form-control">
+            </div>
+            <div class="field-error" th:errors="*{name}">
+                이름 필수 입력 오류, 중복 오류
+            </div>
+            <br/>
+
+            <div>
+                <label for="address" class="form-label">주소</label>
+                <input type="text" id="address" th:field="*{address}"
+                       th:errorclass="field-error" class="form-control">
+            </div>
+            <div class="field-error" th:errors="*{address}">
+                주소 필수 입력 오류
+            </div>
+            <br/>
+
+            <div>
+                <label for="phoneNum" class="form-label">핸드폰 번호</label>
+                <input type="tel" id="phoneNum" th:field="*{phoneNum}"
+                       th:errorclass="field-error" class="form-control">
+            </div>
+            <div class="field-error" th:errors="*{phoneNum}">
+                핸드폰 번호 필수 입력 오류
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="submit">회원 가입</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
