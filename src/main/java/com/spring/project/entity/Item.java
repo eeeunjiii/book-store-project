@@ -1,14 +1,10 @@
 package com.spring.project.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
-@Table(name = "Item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
 
@@ -19,17 +15,23 @@ public class Item {
     private String title;
     private String author;
     private String publisher;
-    private int publish_year;
-    private int price;
-    private int stock;
+    private Integer publish_year;
+    private Integer price;
+    private Integer stock;
 
     @Builder
-    public Item(Long id, String title, String author, String publisher, int publish_year, int price, int stock){
+    public Item(Long id, String title, String author, String publisher, Integer publish_year, Integer price, Integer stock){
         this.id=id;
         this.title=title;
         this.author=author;
         this.publisher=publisher;
         this.publish_year=publish_year;
+        this.price=price;
+        this.stock=stock;
+    }
+
+    public void updateItem(String title, Integer price, Integer stock) { // ItemDto itemDto
+        this.title=title;
         this.price=price;
         this.stock=stock;
     }

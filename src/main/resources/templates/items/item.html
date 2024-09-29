@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+    <title>Book</title>
+</head>
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h1>Book Details</h1>
+        </div>
+
+        <h2 th:if="${param.save}" th:text="#{page.save}">저장 완료</h2>
+
+        <div>
+            <label for="id" th:text="#{item.id}">도서 ID</label>
+            <input type="text" id="id" class="form-control" th:field="${item.id}" readonly>
+        </div>
+
+        <div>
+            <label for="title" th:text="#{item.title}">도서 제목</label>
+            <input type="text" id="title" class="form-control" th:field="${item.title}" readonly>
+        </div>
+
+        <div>
+            <label for="author" th:text="#{item.author}">저자</label>
+            <input type="text" id="author" class="form-control" th:field="${item.author}" readonly>
+        </div>
+
+        <div>
+            <label for="publisher" th:text="#{item.publisher}">출판사</label>
+            <input type="text" id="publisher" class="form-control" th:field="${item.publisher}" readonly>
+        </div>
+
+        <div>
+            <label for="publish_year" th:text="#{item.publish_year}">출판년도</label>
+            <input type="text" id="publish_year" class="form-control" th:field="${item.publish_year}" readonly>
+        </div>
+
+        <div>
+            <label for="price" th:text="#{item.price}">가격</label>
+            <input type="text" id="price" class="form-control" th:field="${item.price}" readonly>
+        </div>
+
+        <div>
+            <label for="stock" th:text="#{item.stock}">수량</label>
+            <input type="text" id="stock" class="form-control" th:field="${item.stock}" readonly>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg"
+                        th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${itemID})}'|"
+                        type="button">도서 정보 수정</button>
+            </div>
+
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        th:onclick="|location.href='@{/items?page=0}'|"
+                        type="button">목록으로</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
