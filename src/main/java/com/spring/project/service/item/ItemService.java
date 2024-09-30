@@ -8,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.spring.project.request.ItemDto.*;
 
@@ -30,10 +32,12 @@ public class ItemService {
         return !findItem.isEmpty();
     }
 
+    @Transactional
     public void updateItemInfo(Long itemId, UpdateItemDto updateItemDto) { // ADMIN
-        itemRepository.findById(itemId)
-                .ifPresent(item ->
-                        item.updateItem(updateItemDto.getTitle(), updateItemDto.getPrice(), updateItemDto.getStock()));
+        Item item=itemRepository.findById(itemId)
+                .orElseThrow(NoSuchElementException::new);
+
+        item.updateItem(updateItemDto.getTitle(), updateItemDto.getAuthor(), updateItemDto.getPrice(), updateItemDto.getStock());
     }
 
     public Item findById(Long itemId) {

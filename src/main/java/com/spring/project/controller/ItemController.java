@@ -44,6 +44,32 @@ public class ItemController {
         return "redirect:/items/{itemId}";
     }
 
+    @GetMapping("/manager/edit/{itemId}")
+    public String editItemForm(Model model, @PathVariable("itemId") Long itemId) {
+        Item item = itemService.findById(itemId);
+
+        model.addAttribute("findItem", item);
+        model.addAttribute("item", new ItemDto.UpdateItemDto());
+        return "manager/editItem";
+    }
+
+    @PostMapping("/manager/edit/{itemId}")
+    public String editItem(@Validated @ModelAttribute("item") ItemDto.UpdateItemDto itemDto, BindingResult bindingResult,
+                           @PathVariable("itemId") Long itemId, RedirectAttributes redirectAttributes, Model model) {
+        if(bindingResult.hasErrors()) {
+            Item item = itemService.findById(itemId);
+            model.addAttribute("findItem", item);
+            return "manager/editItem";
+        }
+
+        itemService.updateItemInfo(itemId, itemDto);
+
+        redirectAttributes.addAttribute("itemId", itemId);
+        redirectAttributes.addAttribute("edit", true);
+
+        return "redirect:/items/{itemId}";
+    }
+
     @GetMapping("/items/{itemId}")
     public String item(@PathVariable("itemId") Long itemId, Model model) {
         Item item=itemService.findById(itemId);

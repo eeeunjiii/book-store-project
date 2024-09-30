@@ -30,8 +30,9 @@ public class Item {
         this.stock=stock;
     }
 
-    public void updateItem(String title, Integer price, Integer stock) { // ItemDto itemDto
+    public void updateItem(String title, String author, Integer price, Integer stock) {
         this.title=title;
+        this.author=author;
         this.price=price;
         this.stock=stock;
     }
