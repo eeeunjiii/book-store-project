@@ -39,7 +39,7 @@
                         <td th:text="${item.author}">저자</td>
                         <td th:text="${item.publisher}">출판사</td>
                         <td th:text="${item.publish_year}">출판년도</td>
-                        <td th:text="${item.price}">가격</td>
+                        <td th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')+' 원'}">가격</td>
                     </tr>
                     </tbody>
                 </table>

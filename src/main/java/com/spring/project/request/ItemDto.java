@@ -56,13 +56,23 @@ public class ItemDto {
     @Setter
     @NoArgsConstructor
     public static class UpdateItemDto {
+
+        @NotBlank
         private String title;
+
+        @NotBlank
+        private String author;
+
+        @NotNull
         private Integer price;
+
+        @NotNull
         private Integer stock;
 
         @Builder
-        public UpdateItemDto(String title, Integer price, Integer stock) {
+        public UpdateItemDto(String title, String author, Integer price, Integer stock) {
             this.title=title;
+            this.author=author;
             this.price = price;
             this.stock = stock;
         }
