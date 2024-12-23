@@ -39,6 +39,12 @@
             <div class="field-error" th:errors="*{password}">
                 비밀번호 미입력 오류
             </div>
+
+            <p>
+                <input type="checkbox" id="remember-me" name="remember-me" />
+                <label for="remember-me" style>로그인 유지</label>
+            </p>
+
             <hr class="my-4">
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-primary" type="submit">로그인</button>

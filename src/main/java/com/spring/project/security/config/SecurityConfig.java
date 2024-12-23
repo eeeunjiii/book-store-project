@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequest) ->
                     authorizeRequest.requestMatchers("/cart/**", "/profile/**", "/order/**", "/manager/**").authenticated()
-//                            .requestMatchers("/manager/**").hasAnyRole("ADMIN")
+                            .requestMatchers("/manager/**").hasAuthority("ADMIN")
                             .anyRequest().permitAll()
                 )
                 .formLogin((formLoginConfigurer) ->
@@ -28,6 +28,11 @@ public class SecurityConfig {
                             .loginPage("/login")
                             .defaultSuccessUrl("/")
                             .failureUrl("/login")
+                )
+                .rememberMe((httpSecurityRememberMeConfigurer) ->
+                    httpSecurityRememberMeConfigurer.key("security")
+                        .rememberMeParameter("remember-me")
+                        .tokenValiditySeconds(60*60*24*10)
                 )
                 .logout((logout) ->
                         logout
