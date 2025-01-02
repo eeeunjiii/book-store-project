@@ -1,4 +1,4 @@
-package com.spring.project.repository.Item;
+package com.spring.project.repository.item;
 
 import com.spring.project.entity.Item;
 

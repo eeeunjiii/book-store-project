@@ -29,7 +29,7 @@ public class HomeController {
         if(principal!=null) {
             User user=userService.findUserByEmail(principal.getUsername());
             if(user!=null) {
-                model.addAttribute("email", user.getEmail());
+                model.addAttribute("user", user);
             }
         }
         return "index";

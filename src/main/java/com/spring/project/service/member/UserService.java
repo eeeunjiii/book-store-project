@@ -1,7 +1,7 @@
 package com.spring.project.service.member;
 
 import com.spring.project.entity.User;
-import com.spring.project.repository.Member.UserRepository;
+import com.spring.project.repository.member.UserRepository;
 import com.spring.project.request.JoinDto;
 import com.spring.project.request.LoginDto;
 import lombok.RequiredArgsConstructor;

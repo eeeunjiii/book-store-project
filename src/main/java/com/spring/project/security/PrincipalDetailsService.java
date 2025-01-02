@@ -1,7 +1,7 @@
 package com.spring.project.security;
 
 import com.spring.project.entity.User;
-import com.spring.project.repository.Member.UserRepository;
+import com.spring.project.repository.member.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

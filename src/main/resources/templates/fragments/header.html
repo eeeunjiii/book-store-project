@@ -1,0 +1,23 @@
+<header class="container-fluid bg-light">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-between align-items-center py-3">
+            <!-- 왼쪽 상단: 웹사이트 이름 -->
+            <a href="/" class="navbar-brand fs-4 fw-bold" style="color: #6b8e23; text-decoration: none; font-size: 2.5rem !important;">Book Store</a>
+
+            <!-- 오른쪽 상단: 로그인/회원가입/로그아웃 관련 정보 -->
+            <div class="d-flex gap-3 align-items-center">
+                <!-- 로그인되지 않은 경우 -->
+                <div th:if="${user} == null" class="d-flex gap-2">
+                    <button class="btn" style="background-color: #d5b895" th:onclick="|location.href='@{/join}'|">회원가입</button>
+                    <button class="btn" style="background-color: #a89f91" th:onclick="|location.href='@{/login}'|">로그인</button>
+                </div>
+
+                <!-- 로그인된 경우 -->
+                <div th:unless="${user} == null" class="d-flex gap-2 align-items-center">
+                    <h5 style="color: #6b8e23" class="me-3 mb-0">[[${user.email}]]님</h5> <!-- 로그인한 사용자의 이메일 -->
+                    <button class="btn" style="background-color: #a89f91" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

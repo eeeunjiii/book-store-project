@@ -26,11 +26,11 @@ public class User {
     private String phoneNum;
     private int point;
 
-//    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")
-    private List<Order> orders=new ArrayList<>(); // Order와의 양방향 매핑을 위해 추가
+    private List<Order> orders=new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
     private Cart cart;
