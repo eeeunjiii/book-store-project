@@ -1,7 +1,7 @@
 package com.spring.project.service.item;
 
 import com.spring.project.entity.Item;
-import com.spring.project.repository.Item.ItemRepository;
+import com.spring.project.repository.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

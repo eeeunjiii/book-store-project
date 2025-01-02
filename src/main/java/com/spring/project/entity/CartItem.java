@@ -4,34 +4,46 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
-@Table(name = "CartItem")
 public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int cart_count;
+    private int quantity;
 
-    @OneToOne
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "item_id")
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    /*@Builder
-    public CartItem(Long id, int cart_count, Item item, Cart cart){
-        this.id=id;
-        this.cart_count=cart_count;
+    @Builder
+    public CartItem(int quantity, Item item, Cart cart){
+        this.quantity=quantity;
         this.item=item;
         this.cart=cart;
-    }*/
+    }
+
+    public static CartItem createCartItem(int quantity, Cart cart, Item item) {
+        return CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .quantity(quantity)
+                .build();
+    }
+
+    public void updateCartItem(int quantity) {
+        this.quantity=quantity;
+    }
+
+    public void addCount(int count) {
+        this.quantity=count;
+    }
 }

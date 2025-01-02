@@ -1,11 +1,15 @@
 package com.spring.project.controller;
 
 import com.spring.project.entity.Item;
+import com.spring.project.entity.User;
 import com.spring.project.request.ItemDto;
+import com.spring.project.security.PrincipalDetails;
 import com.spring.project.service.item.ItemService;
+import com.spring.project.service.member.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ItemController {
 
     private final ItemService itemService;
+    private final UserService userService;
 
     @GetMapping("/manager/new")
     public String addItemForm(Model model) {
@@ -71,12 +76,20 @@ public class ItemController {
     }
 
     @GetMapping("/items/{itemId}")
-    public String item(@PathVariable("itemId") Long itemId, Model model) {
+    public String item(@PathVariable("itemId") Long itemId, Model model,
+                       @AuthenticationPrincipal PrincipalDetails principal) {
         Item item=itemService.findById(itemId);
 
         if(item==null) {
             throw new IllegalStateException("존재하지 않는 도서입니다.");
-        } else {
+        }
+
+        if(principal!=null) {
+            User user=userService.findUserByEmail(principal.getUsername());
+            model.addAttribute("item", item);
+            model.addAttribute("user", user);
+        }
+        else {
             model.addAttribute("item", item);
         }
         return "items/item";

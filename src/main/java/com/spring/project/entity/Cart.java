@@ -8,8 +8,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
-@Table(name = "Cart")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cart {
 
@@ -17,19 +15,32 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int total_price;
+    private int quantity;
 
     @OneToOne
-    @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems=new ArrayList<>();
 
-    /*@Builder
-    public Cart(Long id, int total_price, Member member){
-        this.id=id;
-        this.total_price=total_price;
-        this.member=member;
-    }*/
+    @Builder
+    public Cart(int quantity, User user){
+        this.quantity=quantity;
+        this.user = user;
+    }
+
+    public static Cart createCart(User user) {
+        return Cart.builder()
+                .quantity(0)
+                .user(user)
+                .build();
+    }
+
+    public static void updateCart(Cart cart, int quantity) {
+        Cart.builder()
+                .user(cart.user)
+                .quantity(cart.getQuantity() + quantity)
+                .build();
+    }
 }

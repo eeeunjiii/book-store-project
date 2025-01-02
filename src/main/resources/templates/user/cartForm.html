@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Cart</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .cart-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #add;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .cart-item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-item-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .cart-item-info {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cart-container">
+        <h1 class="text-center">장바구니</h1>
+        <div class="cart-item" th:each="cartItem:${cartItems}">
+            <img src="/images/default.png" alt="Book Image" class="book-image img-fluid">
+            <div class="cart-item-details">
+                <p class="cart-item-title" th:text="${cartItem.item.title}"></p>
+                <p class="cart-item-info"
+                   th:text="'수량: '+${cartItem.quantity}+'    가격: '+${cartItem.item.price} +'원'"></p>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="cart-total-details">
+            <p class="cart-total-price" th:text="${totalPrice}"></p>
+            <p class=""
+        </div>
+
+    </div>
+
+</body>
+</html>
