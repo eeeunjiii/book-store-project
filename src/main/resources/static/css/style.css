@@ -1,0 +1,36 @@
+body {
+    background-color: #f8f9fa; /* 원하는 배경색 코드 */
+}
+
+
+.form-control:focus {
+    border-color: #d5b895; /* 원하는 색상 */
+    box-shadow: 0 0 5px rgba(107, 142, 35, 0.5);
+}
+
+/* 기본 체크박스 스타일 */
+input[type="checkbox"] {
+    accent-color: #6b8e23; /* 기본 체크박스 색상 */
+}
+
+/* 체크 상태일 때 스타일 */
+input[type="checkbox"]:checked {
+    accent-color: #6b8e23; /* 체크 상태일 때 색상 */
+}
+
+/* 링크 기본 색상 */
+a {
+    color: #6b8e23; /* 원하는 색상 */
+    text-decoration: none; /* 밑줄 제거 (선택 사항) */
+}
+
+/* 방문한 링크 색상 */
+a:visited {
+    color: #a89f91; /* 방문한 링크 색상 */
+}
+
+/* 마우스를 올렸을 때 색상 */
+a:hover {
+    color: #a89f91; /* 호버 시 색상 */
+    text-decoration: underline; /* 밑줄 추가 (선택 사항) */
+}
