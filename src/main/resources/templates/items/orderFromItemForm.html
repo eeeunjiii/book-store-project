@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Order Books</title>
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <h1>주문 상세 정보 입력</h1>
+        </div>
+
+        <form th:action th:method="post" th:object="${infoForm}">
+            <div>
+                <label for="customer" class="form-label">주문자명</label>
+                <input id="customer" class="form-control" type="text"
+                       th:field="*{customer}" th:errorclass="field-error">
+            </div>
+            <div class="field-error" th:errors="*{customer}">주문자명 필수 입력 오류</div>
+            <br/>
+
+            <div>
+                <label for="phoneNumber" class="form-label">휴대폰 번호</label>
+                <input id="phoneNumber" class="form-control" type="text"
+                       th:field="*{phoneNumber}" th:errorclass="field-error">
+            </div>
+            <div class="field-error" th:errors="*{phoneNumber}">전화번호 필수 입력 오류</div>
+
+            <br/>
+
+            <div>
+                <label for="destination" class="form-label">배송지</label>
+                <input id="destination" class="form-control" type="text"
+                       th:field="*{destination}" th:errorclass="field-error">
+            </div>
+            <div class="field-error" th:errors="*{destination}">주소지 필수 입력 오류</div>
+            <br/>
+
+            <div>
+                <label for="payment" class="form-label">결제 방식</label>
+                <select th:field="*{payment}" th:errorclass="field-error"
+                        class="form-select" id="payment" aria-label=".form-select-sm example">
+                    <option value="">== 결제 방식 선택 == </option>
+                    <option th:each="payment:${payments}" th:value="${payment}"
+                            th:text="${payment.getDescription()}"></option>
+                </select>
+            </div>
+            <div class="field-error" th:errors="*{payment}">결제 방식 필수 선택 오류</div>
+            <br/>
+
+            <div>
+                <label for="point" class="form-label">포인트</label>
+                <input id="point" class="form-control" type="text" th:field="*{point}">
+                <small class="text-muted">보유 포인트: <span th:text="${userPoint}">0</span></small>
+            </div>
+            <br/>
+
+            <div>
+                <label for="memo" class="form-label">배송 메모</label>
+                <input id="memo" class="form-control" type="text" th:field="*{memo}">
+            </div>
+
+            <div class="order-summary-box">
+                <h5>주문 내역</h5>
+                <div class="order-item">
+                    <p>
+                        <strong>도서 제목:</strong> <span th:text="${item.title}">도서 제목</span>
+                    </p>
+                    <p>
+                        <strong>수량:</strong> <span th:text="${quantity}">1</span>
+                    </p>
+                    <p>
+                        <strong>가격:</strong> <span th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')+' 원'}">0</span>
+                    </p>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="w-100 btn btn-lg" type="submit" style="background-color: #6b8e23">주문하기</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

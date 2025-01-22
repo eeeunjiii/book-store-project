@@ -1,17 +1,13 @@
 package com.spring.project.entity;
 
-import com.spring.project.constant.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
-@Table(name = "OrderItem")
 public class OrderItem {
 
     @Id
@@ -19,22 +15,29 @@ public class OrderItem {
     private Long id;
 
     private int order_count;
-    private int price;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id")
     private Order order;
 
-    @OneToOne
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "item_id")
     private Item item;
 
-    /*@Builder
-    public OrderItem(Long id, int order_count, int price, Order order, Item item){
+    @Builder
+    public OrderItem(Long id, int order_count, Order order, Item item){
         this.id=id;
         this.order_count=order_count;
-        this.price=price;
         this.order=order;
         this.item=item;
-    }*/
+    }
+
+//    public static OrderItem createOrderItem(int order_count, int price, Order order, Item item) {
+//        return OrderItem.builder()
+//                .order_count(order_count)
+//                .price(price)
+//                .order(order)
+//                .item(item)
+//                .build();
+//    }
 }
