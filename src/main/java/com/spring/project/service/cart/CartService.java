@@ -37,9 +37,10 @@ public class CartService {
             cartItemService.save(cartItem);
         }
         updateCartTotalQuantity(cart, quantity);
+        save(cart);
     }
 
-    private Cart findCartByUserId(User user) {
+    public Cart findCartByUserId(User user) {
         return cartRepository.findByUserId(user.getId());
     }
 
@@ -48,6 +49,6 @@ public class CartService {
     }
 
     private void updateCartTotalQuantity(Cart cart, int quantity) {
-        Cart.updateCart(cart, quantity);
+        cart.updateCart(quantity);
     }
 }
