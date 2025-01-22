@@ -2,6 +2,10 @@ body {
     background-color: #f8f9fa; /* 원하는 배경색 코드 */
 }
 
+.field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+}
 
 .form-control:focus {
     border-color: #d5b895; /* 원하는 색상 */
@@ -33,4 +37,12 @@ a:visited {
 a:hover {
     color: #a89f91; /* 호버 시 색상 */
     text-decoration: underline; /* 밑줄 추가 (선택 사항) */
+}
+
+.order-summary-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+    background-color: #f9f9f9;
 }
