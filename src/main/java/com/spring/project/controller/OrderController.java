@@ -114,6 +114,8 @@ public class OrderController {
         order.updateOrderInfo(infoForm);
         orderService.save(order);
 
+        cartService.removeOrderedItemFromCart(order, user);
+
         model.addAttribute("user", user);
         model.addAttribute("order", order);
         model.addAttribute("orderItems", order.getOrderItems());
