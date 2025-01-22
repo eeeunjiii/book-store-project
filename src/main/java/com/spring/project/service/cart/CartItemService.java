@@ -20,4 +20,8 @@ public class CartItemService {
          return cartItemRepository.findByCartIdAndItemId(cartId, itemId)
                 .orElse(null);
     }
+
+    public void delete(CartItem cartItem) {
+        cartItemRepository.delete(cartItem);
+    }
 }

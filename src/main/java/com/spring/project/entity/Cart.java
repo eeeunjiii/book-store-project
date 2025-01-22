@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Cart {
 
     @Id
@@ -37,10 +37,7 @@ public class Cart {
                 .build();
     }
 
-    public static void updateCart(Cart cart, int quantity) {
-        Cart.builder()
-                .user(cart.user)
-                .quantity(cart.getQuantity() + quantity)
-                .build();
+    public void updateCart(int quantity) {
+        this.quantity+=quantity;
     }
 }

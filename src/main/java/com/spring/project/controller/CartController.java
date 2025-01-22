@@ -6,6 +6,7 @@ import com.spring.project.entity.Item;
 import com.spring.project.entity.User;
 import com.spring.project.request.CartDto;
 import com.spring.project.security.PrincipalDetails;
+import com.spring.project.service.cart.CartItemService;
 import com.spring.project.service.cart.CartService;
 import com.spring.project.service.item.ItemService;
 import com.spring.project.service.member.UserService;
@@ -27,22 +28,23 @@ public class CartController {
     private final CartService cartService;
     private final UserService userService;
     private final ItemService itemService;
+    private final CartItemService cartItemService;
 
     @GetMapping("/{userId}/cart")
     public String cartForm(@PathVariable("userId") Long userId,
                            @AuthenticationPrincipal PrincipalDetails principal, Model model) {
         User user = userService.findUserByEmail(principal.getUsername());
 
-        Cart cart=user.getCart();
+        Cart cart=userService.getUserCart(user);
         List<CartItem> cartItems = cart.getCartItems().stream().toList();
+
+        cart.getCartItems().addAll(cartItems);
+        userService.save(user);
 
         int totalPrice=0;
         for(CartItem cartItem:cartItems) {
             totalPrice+=cartItem.getQuantity()*cartItem.getItem().getPrice();
         }
-
-        int totalQuantity=0;
-
 
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("user", user);
@@ -53,9 +55,9 @@ public class CartController {
 
     @PostMapping("/items/{itemId}/cart/add")
     public ResponseEntity<String> addItemToCartForm(@PathVariable("itemId") Long itemId,
-                                                        @AuthenticationPrincipal PrincipalDetails principal,
-                                                        @RequestBody CartDto cartDto,
-                                                        RedirectAttributes redirectAttributes) {
+                                                    @AuthenticationPrincipal PrincipalDetails principal,
+                                                    @RequestBody CartDto cartDto,
+                                                    RedirectAttributes redirectAttributes) {
         User user=userService.findUserByEmail(principal.getUsername());
         Item item=itemService.findById(itemId);
         int quantity=cartDto.getQuantity();
@@ -69,4 +71,16 @@ public class CartController {
         return ResponseEntity.ok("장바구니 추가 성공");
     }
 
+    @PostMapping("/items/{itemId}/cart/delete")
+    public ResponseEntity<String> deleteItemFromCart(@PathVariable("itemId") Long iemId,
+                                                     @AuthenticationPrincipal PrincipalDetails principal) {
+        User user = userService.findUserByEmail(principal.getUsername());
+        Long cartId = user.getCart().getId();
+        Item item = itemService.findById(iemId);
+
+        CartItem removeCartItem = cartItemService.findByCartIdAndItemId(cartId, item.getId());
+        cartItemService.delete(removeCartItem);
+
+        return ResponseEntity.ok("Success in removing item from cart");
+    }
 }

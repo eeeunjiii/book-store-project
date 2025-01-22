@@ -1,5 +1,6 @@
 package com.spring.project.service.member;
 
+import com.spring.project.entity.Cart;
 import com.spring.project.entity.User;
 import com.spring.project.repository.member.UserRepository;
 import com.spring.project.request.JoinDto;
@@ -56,5 +57,18 @@ public class UserService {
     public User findUserByEmail(String email){
         return userRepository.findByEmail(email)
                 .orElse(null);
+    }
+
+    public User findUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElse(null);
+    }
+
+    public Cart getUserCart(User user) {
+        return user.getCart();
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

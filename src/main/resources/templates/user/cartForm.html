@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Cart</title>
-    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/custom.js"></script>
     <style>
         .cart-container {
             max-width: 800px;
@@ -40,26 +42,56 @@
             color: #555;
             margin-top: 5px;
         }
+        .empty-cart-message {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 18px;
+            color: #6b8e23;
+        }
     </style>
+    <title>User Cart</title>
 </head>
 <body>
 
+    <div th:insert="~{fragments/header :: header}"></div>
+
     <div class="cart-container">
         <h1 class="text-center">장바구니</h1>
-        <div class="cart-item" th:each="cartItem:${cartItems}">
-            <img src="/images/default.png" alt="Book Image" class="book-image img-fluid">
-            <div class="cart-item-details">
-                <p class="cart-item-title" th:text="${cartItem.item.title}"></p>
-                <p class="cart-item-info"
-                   th:text="'수량: '+${cartItem.quantity}+'    가격: '+${cartItem.item.price} +'원'"></p>
+        <div th:if="${cartItems.size()>0}">
+            <div class="cart-item" th:each="cartItem:${cartItems}" style="position: relative;">
+                <input type="checkbox" class="item-checkbox" th:data-id="${cartItem.item.id}"
+                       style="position: absolute; top: 50px; left: 0px; transform: translate(-50%);">
+
+                <img src="/images/default.png" alt="Book Image" class="book-image img-fluid">
+                <div class="cart-item-details">
+                    <p class="cart-item-title data-item" th:data-id="${cartItem.item.id}">
+                        <a th:href="@{/items/{itemId}(itemId=${cartItem.item.id})}"
+                           th:data-title="${cartItem.item.title}"
+                           th:text="${cartItem.item.title}"></a>
+                    </p>
+                    <p class="cart-item-info data-quantity" th:data-quantity="${cartItem.quantity}"
+                       th:text="'수량: '+${cartItem.quantity}"></p>
+                    <p class="cart-item-info" id="price"
+                       th:text="'가격: '+${cartItem.item.price}"></p>
+                    <a href="#" class="delete-item" style="position: absolute; bottom: 10px; right: 10px; text-decoration: underline;"
+                       th:data-id="${cartItem.item.id}" onclick="deleteCartItem(event)">삭제</a>
+                </div>
+            </div>
+
+            <div class="cart-total-details">
+                <p class="cart-total-price" th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')+' 원'}"></p>
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="w-100 btn btn-lg" style="background-color: #d5b895"
+                        th:onclick="|location.href='@{/items/cart/order}'|"
+                        type="button">주문하기</button>
             </div>
         </div>
 
-        <hr class="my-4">
-
-        <div class="cart-total-details">
-            <p class="cart-total-price" th:text="${totalPrice}"></p>
-            <p class=""
+        <div th:if="${cartItems.size()==0}" class="empty-cart-message">
+            <p>장바구니가 비어있습니다.</p>
+            <a th:href="@{/items}" style="text-decoration: none;">> 상품 보러 가기</a>
         </div>
 
     </div>

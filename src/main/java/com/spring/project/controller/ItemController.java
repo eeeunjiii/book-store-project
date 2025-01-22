@@ -96,9 +96,14 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public String items(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String items(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                        @AuthenticationPrincipal PrincipalDetails principal) {
         Page<Item> paging=itemService.findAll(page);
+
+        User user=userService.findUserByEmail(principal.getUsername());
+
         model.addAttribute("paging", paging);
+        model.addAttribute("user", user);
 
         return "items/items";
     }

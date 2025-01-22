@@ -15,6 +15,9 @@
                 <!-- 로그인된 경우 -->
                 <div th:unless="${user} == null" class="d-flex gap-2 align-items-center">
                     <h5 style="color: #6b8e23" class="me-3 mb-0">[[${user.email}]]님</h5> <!-- 로그인한 사용자의 이메일 -->
+                    <a th:href="@{/{userId}/my-page(userId=${user.id})}">
+                        <img th:src="@{/img/user.png}" alt="User Icon" style="width: 35px; height: 35px; margin-right: 20px;">
+                    </a>
                     <button class="btn" style="background-color: #a89f91" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
                 </div>
             </div>
