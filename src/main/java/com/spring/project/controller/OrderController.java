@@ -58,7 +58,7 @@ public class OrderController {
     @PostMapping("/items/order")
     public String createOrderFromItem(@AuthenticationPrincipal PrincipalDetails principal,
                                       @Validated @ModelAttribute("infoForm") OrderInfoDto infoForm,
-                                      BindingResult bindingResult,
+                                      BindingResult bindingResult, Model model,
                                       @RequestParam("quantity") int quantity, @RequestParam("itemId") Long itemId) {
         if(bindingResult.hasErrors()) {
             return "items/orderFromItemForm";
@@ -69,7 +69,11 @@ public class OrderController {
         order.updateOrderInfo(infoForm);
         orderService.save(order);
 
-        return "items/orderFromItemForm";
+        model.addAttribute("user", user);
+        model.addAttribute("order", order);
+        model.addAttribute("orderItems", order.getOrderItems());
+
+        return "items/completeOrderForm";
     }
 
     @GetMapping("/items/cart/order")
@@ -96,7 +100,7 @@ public class OrderController {
     public String createOrderFromCart(@AuthenticationPrincipal PrincipalDetails principal,
                                       @Validated @ModelAttribute("infoForm") OrderInfoDto infoForm,
                                       BindingResult bindingResult,
-                                      HttpServletRequest request) { // OrderItem으로 저장하는 과정
+                                      HttpServletRequest request, Model model) { // OrderItem으로 저장하는 과정
         if(bindingResult.hasErrors()) {
             return "items/orderFromCartForm";
         }
@@ -110,7 +114,11 @@ public class OrderController {
         order.updateOrderInfo(infoForm);
         orderService.save(order);
 
-        return "items/orderFromCartForm";
+        model.addAttribute("user", user);
+        model.addAttribute("order", order);
+        model.addAttribute("orderItems", order.getOrderItems());
+
+        return "items/completeOrderForm";
     }
 
     @PostMapping("/items/add/order")
@@ -126,8 +134,6 @@ public class OrderController {
         if(!orderItemDtoList.contains(orderItemDto)) {
             orderItemDtoList.add(orderItemDto);
         }
-
-        log.info("orderItemDtoList: {}", orderItemDtoList);
 
         session.setAttribute("orderItems", orderItemDtoList);
         return ResponseEntity.ok("Success add to order");

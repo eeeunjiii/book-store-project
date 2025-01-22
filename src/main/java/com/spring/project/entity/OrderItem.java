@@ -31,13 +31,4 @@ public class OrderItem {
         this.order=order;
         this.item=item;
     }
-
-//    public static OrderItem createOrderItem(int order_count, int price, Order order, Item item) {
-//        return OrderItem.builder()
-//                .order_count(order_count)
-//                .price(price)
-//                .order(order)
-//                .item(item)
-//                .build();
-//    }
 }
