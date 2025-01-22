@@ -1,14 +1,13 @@
 package com.spring.project.service.cart;
 
-import com.spring.project.entity.Cart;
-import com.spring.project.entity.CartItem;
-import com.spring.project.entity.Item;
-import com.spring.project.entity.User;
+import com.spring.project.entity.*;
 import com.spring.project.repository.cart.CartRepository;
 import com.spring.project.service.item.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +37,17 @@ public class CartService {
         }
         updateCartTotalQuantity(cart, quantity);
         save(cart);
+    }
+
+    public void removeOrderedItemFromCart(Order order, User user) {
+        Cart cart=user.getCart();
+        List<OrderItem> orderItems=order.getOrderItems();
+
+        for(OrderItem orderItem:orderItems) {
+            CartItem cartItem=cartItemService.findByCartIdAndItemId(cart.getId(), orderItem.getItem().getId());
+            cart.getCartItems().remove(cartItem);
+            cartItemService.delete(cartItem);
+        }
     }
 
     public Cart findCartByUserId(User user) {

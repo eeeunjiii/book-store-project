@@ -62,8 +62,6 @@ public class CartController {
         Item item=itemService.findById(itemId);
         int quantity=cartDto.getQuantity();
 
-        log.info("quantity: {}", quantity);
-
         cartService.addItemToCart(user, item, quantity);
 
         redirectAttributes.addAttribute("itemId", itemId);
