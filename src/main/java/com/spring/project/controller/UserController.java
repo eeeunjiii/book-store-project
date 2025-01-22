@@ -1,5 +1,6 @@
 package com.spring.project.controller;
 
+import com.spring.project.entity.User;
 import com.spring.project.request.JoinDto;
 import com.spring.project.request.LoginDto;
 import com.spring.project.service.member.UserService;
@@ -12,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -54,5 +56,14 @@ public class UserController {
         userService.join(joinDto);
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/{userId}/my-page")
+    public String myPage(@PathVariable("userId") Long userId, Model model) {
+        User user=userService.findUserById(userId);
+
+        model.addAttribute("user", user);
+
+        return "user/myPage";
     }
 }
