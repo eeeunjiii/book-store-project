@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>My Page</title>
+</head>
+<body>
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="container">
+        <a th:href="@{/{userId}/cart(userId=${user.id})}">장바구니</a>
+
+    </div>
+</body>
+</html>
