@@ -46,7 +46,6 @@ public class OrderService {
 
         order.updateTotalPrice(totalPrice);
         orderRepository.save(order);
-        user.updateUserOrders(order);
 
         return order;
     }
@@ -67,7 +66,6 @@ public class OrderService {
         }
         order.updateTotalPrice(totalPrice);
         orderRepository.save(order);
-        user.updateUserOrders(order);
 
         return order;
     }

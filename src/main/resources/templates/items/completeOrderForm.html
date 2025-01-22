@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="resources/static/js/custom.js"></script>
+    <title>Complete Order</title>
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="container">
+        <div class="text-center">
+            <h1 class="text-success" style="color: #6b8e23;">주문이 완료되었습니다!</h1>
+        </div>
+
+        <div class="order-summary-box">
+            <div calss="card-body">
+                <h5 class="card-title">주문 번호: <span th:text="${order.id}">1</span></h5>
+                <p class="card-text">
+                    <strong>주문 일자:</strong> <span th:text="${order.order_date}">0000-00-00</span> |
+                    <strong>주문자명:</strong> <span th:text="${order.customer}">홍길동</span>
+                </p>
+                <hr>
+
+                <p>
+                    <strong>전화번호:</strong> <span th:text="${order.phoneNumber}">010-1234-5678</span>
+                </p>
+                <p>
+                    <strong>주소지:</strong> <span th:text="${order.destination}">서울</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="order-summary-box">
+            <h5>주문 내역</h5>
+            <div class="order-item" th:each="orderItem:${orderItems}">
+                <p>
+                    <strong>도서 제목:</strong> <span th:text="${orderItem.item.title}">도서 제목</span>
+                </p>
+                <p>
+                    <strong>수량:</strong> <span th:text="${orderItem.order_count}">1</span>
+                </p>
+                <p>
+                    <strong>가격:</strong> <span th:text="${#numbers.formatInteger(orderItem.item.price, 0, 'COMMA')}">20,000</span>
+                </p>
+                <hr>
+            </div>
+            <div class="total-price">
+                <p>
+                    <strong>가격:</strong> <span th:text="${#numbers.formatInteger(order.total_price, 0, 'COMMA')+' 원'}">0</span>
+                </p>
+            </div>
+        </div>
+        <br/>
+    </div>
+</body>
+</html>

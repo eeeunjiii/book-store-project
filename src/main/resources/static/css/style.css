@@ -46,3 +46,44 @@ a:hover {
     margin-top: 16px;
     background-color: #f9f9f9;
 }
+
+.cart-container {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #add;
+}
+
+.cart-item img {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.cart-item-info {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 5px;
+}
+.empty-cart-message {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+    color: #6b8e23;
+}
