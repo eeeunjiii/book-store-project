@@ -36,6 +36,11 @@ public class CartController {
         User user = userService.findUserByEmail(principal.getUsername());
 
         Cart cart=userService.getUserCart(user);
+
+        if(cart==null) {
+            return "/user/cartForm";
+        }
+
         List<CartItem> cartItems = cart.getCartItems().stream().toList();
 
         cart.getCartItems().addAll(cartItems);
@@ -49,6 +54,7 @@ public class CartController {
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("user", user);
         model.addAttribute("cartItems", cartItems);
+        model.addAttribute("cart", cart);
 
         return "/user/cartForm";
     }

@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <div th:if="${cartItems.size()==0}" class="empty-cart-message">
+        <div th:if="${cartItems.size()==0 or cart==null}" class="empty-cart-message">
             <p>장바구니가 비어있습니다.</p>
             <a th:href="@{/items}" style="text-decoration: none;">> 상품 보러 가기</a>
         </div>
