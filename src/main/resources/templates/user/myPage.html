@@ -12,8 +12,8 @@
     <div th:insert="~{fragments/header :: header}"></div>
 
     <div class="container">
-        <a th:href="@{/{userId}/cart(userId=${user.id})}">장바구니</a>
-
+        <a th:href="@{/{userId}/cart(userId=${user.id})}">장바구니</a><br/>
+        <a th:href="@{/{userId}/order(userId=${user.Id})}">주문 목록</a>
     </div>
 </body>
 </html>

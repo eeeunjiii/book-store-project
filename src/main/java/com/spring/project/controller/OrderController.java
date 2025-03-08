@@ -8,6 +8,7 @@ import com.spring.project.security.PrincipalDetails;
 import com.spring.project.service.cart.CartService;
 import com.spring.project.service.item.ItemService;
 import com.spring.project.service.member.UserService;
+import com.spring.project.service.order.OrderItemService;
 import com.spring.project.service.order.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +30,7 @@ import java.util.List;
 @Slf4j
 public class OrderController {
     private final OrderService orderService;
+    private final OrderItemService orderItemService;
     private final UserService userService;
     private final CartService cartService;
     private final ItemService itemService;
@@ -74,6 +76,31 @@ public class OrderController {
         model.addAttribute("orderItems", order.getOrderItems());
 
         return "items/completeOrderForm";
+    }
+
+    @GetMapping("/{userId}/order")
+    public String orderListForm(Model model, @AuthenticationPrincipal PrincipalDetails principal) {
+        User user=userService.findUserByEmail(principal.getUsername());
+
+        List<Order> orders=orderService.findOrderListByUser(user);
+
+        model.addAttribute("orders", orders);
+        model.addAttribute("user", user);
+
+        return "/user/orderForm"; // 주문 아이디, 주문자명, 메모, 주소만 출력
+    }
+
+    @GetMapping("/{userId}/order/{orderId}")
+    public String orderDetailsForm(Model model, @AuthenticationPrincipal PrincipalDetails principal,
+                                   @PathVariable("orderId") Long orderId) {
+        User user=userService.findUserByEmail(principal.getUsername());
+
+        List<OrderItem> orderItems=orderItemService.findOrderItemListByOrderId(orderId);
+
+        model.addAttribute("user", user);
+        model.addAttribute("orderItems", orderItems);
+
+        return "/user/orderItemForm";
     }
 
     @GetMapping("/items/cart/order")

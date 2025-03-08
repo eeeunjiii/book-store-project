@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <title>User Order List</title>
+</head>
+<body>
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="order-container">
+        <h1 class="text-center">주문 목록</h1>
+
+        <div th:if="${orders.size()>0}">
+            <div class="order-card" th:each="order:${orders}">
+                <a th:href="@{/{userId}/order/{orderId}(userId=${user.id}, orderId=${order.id})}" class="order-card-link">
+                <div class="order-details">
+                    <div class="order-number">주문 번호: <span th:text="${order.id}"></span></div>
+                    <div class="order-info">주문자명: <span th:text="${order.customer}"></span></div>
+                    <div class="order-info">메모: <span th:text="${order.memo}"></span></div>
+                    <div class="order-info">주소지: <span th:text="${order.destination}"></span></div>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <div th:if="${orders.size()==0}"  class="empty-order-message">
+            <p>주문 목록이 비어있습니다!</p>
+            <a th:href="@{/items}" style="text-decoration: none;">> 상품 보러 가기</a>
+        </div>
+    </div>
+
+</body>
+</html>
