@@ -69,4 +69,8 @@ public class OrderService {
 
         return order;
     }
+
+    public List<Order> findOrderListByUser(User user) {
+        return orderRepository.findListByUserId(user.getId());
+    }
 }

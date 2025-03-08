@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <title>User Order Item List</title>
+</head>
+<body>
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="order-container">
+        <h1 class="text-center">주문 상세 목록</h1>
+        <div th:each="orderItem:${orderItems}" class="order-item" style="position: relative;">
+            <img src="/images/default.png" alt="Book Image" class="book-image img-fluid">
+            <div class="order-item-details">
+                <p class="order-item-title">
+                    <a th:href="@{/items/{itemId}(itemId=${orderItem.item.id})}"
+                       th:text="${orderItem.item.title}"></a>
+                <p class="order-item-info" th:text="'수량: '+${orderItem.order_count}"></p>
+                <p class="order-item-info" id="price" th:text="'가격: '+${orderItem.item.price}"></p>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
