@@ -100,11 +100,13 @@ public class ItemController {
                         @AuthenticationPrincipal PrincipalDetails principal) {
         Page<Item> paging=itemService.findAll(page);
 
-        User user=userService.findUserByEmail(principal.getUsername());
-
-        model.addAttribute("paging", paging);
-        model.addAttribute("user", user);
-
+        if(principal!=null) {
+            User user=userService.findUserByEmail(principal.getUsername());
+            model.addAttribute("paging", paging);
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("paging", paging);
+        }
         return "items/items";
     }
 }
