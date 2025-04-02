@@ -29,7 +29,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
     private List<Order> orders=new ArrayList<>();
 
     @OneToOne(mappedBy = "user")

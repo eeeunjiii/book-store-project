@@ -35,7 +35,7 @@ public class CartController {
                            @AuthenticationPrincipal PrincipalDetails principal, Model model) {
         User user = userService.findUserByEmail(principal.getUsername());
 
-        Cart cart=userService.getUserCart(user);
+        Cart cart=cartService.findCartByUserId(userId);
         List<CartItem> cartItems = cart.getCartItems().stream().toList();
 
         cart.getCartItems().addAll(cartItems);

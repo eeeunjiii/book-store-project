@@ -8,10 +8,10 @@ import com.spring.project.repository.order.OrderItemRepository;
 import com.spring.project.repository.order.OrderRepository;
 import com.spring.project.request.OrderItemDto;
 import com.spring.project.service.item.ItemService;
-import com.spring.project.service.member.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,12 +22,13 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final ItemService itemService;
-    private final UserService userService;
 
+    @Transactional
     public void save(Order order) {
         orderRepository.save(order);
     }
 
+    @Transactional
     public Order createOrder(User user, Long itemId, int quantity) {
         Order order=Order.createOrder(user);
         orderRepository.save(order);
@@ -50,6 +51,7 @@ public class OrderService {
         return order;
     }
 
+    @Transactional
     public Order createOrder(User user, List<OrderItemDto> orderItemList) {
         Order order=Order.createOrder(user);
         orderRepository.save(order);

@@ -1,6 +1,5 @@
 package com.spring.project.service.member;
 
-import com.spring.project.entity.Cart;
 import com.spring.project.entity.User;
 import com.spring.project.repository.member.UserRepository;
 import com.spring.project.request.JoinDto;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
+    @Transactional
     public void join(JoinDto req){
         validateDuplicationUser(req.toEntity(encoder.encode(req.getPassword())));
         userRepository.save(req.toEntity(encoder.encode(req.getPassword())));
@@ -64,10 +65,7 @@ public class UserService {
                 .orElse(null);
     }
 
-    public Cart getUserCart(User user) {
-        return user.getCart();
-    }
-
+    @Transactional
     public void save(User user) {
         userRepository.save(user);
     }

@@ -6,6 +6,7 @@ import com.spring.project.service.item.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,8 +18,9 @@ public class CartService {
     private final ItemService itemService;
     private final CartItemService cartItemService;
 
+    @Transactional
     public void addItemToCart(User user, Item item, int quantity) {
-        Cart cart=findCartByUserId(user);
+        Cart cart=findCartByUserId(user.getId());
 
         if(cart==null) {
             cart=Cart.createCart(user);
@@ -39,6 +41,7 @@ public class CartService {
         save(cart);
     }
 
+    @Transactional
     public void removeOrderedItemFromCart(Order order, User user) {
         Cart cart=user.getCart();
         List<OrderItem> orderItems=order.getOrderItems();
@@ -50,8 +53,9 @@ public class CartService {
         }
     }
 
-    public Cart findCartByUserId(User user) {
-        return cartRepository.findByUserId(user.getId());
+    @Transactional
+    public Cart findCartByUserId(Long userId) {
+        return cartRepository.findByUserId(userId);
     }
 
     private void save(Cart cart) {

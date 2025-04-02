@@ -22,6 +22,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
+    @Transactional
     public Item addItem(Item item) { // ADMIN
         return itemRepository.save(item);
     }
