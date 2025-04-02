@@ -36,10 +36,7 @@ public class CartController {
         User user = userService.findUserByEmail(principal.getUsername());
 
         Cart cart=cartService.findCartByUserId(userId);
-        List<CartItem> cartItems = cart.getCartItems().stream().toList();
-
-        cart.getCartItems().addAll(cartItems);
-        userService.save(user);
+        List<CartItem> cartItems = cartItemService.findCartItemsByCart(cart);
 
         int totalPrice=0;
         for(CartItem cartItem:cartItems) {
