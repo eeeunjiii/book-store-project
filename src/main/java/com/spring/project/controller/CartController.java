@@ -70,7 +70,7 @@ public class CartController {
     public ResponseEntity<String> deleteItemFromCart(@PathVariable("itemId") Long iemId,
                                                      @AuthenticationPrincipal PrincipalDetails principal) {
         User user = userService.findUserByEmail(principal.getUsername());
-        Long cartId = user.getCart().getId();
+        Long cartId = cartService.findCartByUserId(user.getId()).getId();
         Item item = itemService.findById(iemId);
 
         CartItem removeCartItem = cartItemService.findByCartIdAndItemId(cartId, item.getId());

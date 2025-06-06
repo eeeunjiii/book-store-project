@@ -43,7 +43,7 @@ public class CartService {
 
     @Transactional
     public void removeOrderedItemFromCart(Order order, User user) {
-        Cart cart=user.getCart();
+        Cart cart=findCartByUserId(user.getId());
         List<OrderItem> orderItems=order.getOrderItems();
 
         for(OrderItem orderItem:orderItems) {
@@ -55,7 +55,7 @@ public class CartService {
 
     @Transactional
     public Cart findCartByUserId(Long userId) {
-        return cartRepository.findByUserId(userId);
+        return cartRepository.findByUserId(userId).orElse(null);
     }
 
     private void save(Cart cart) {

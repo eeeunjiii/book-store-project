@@ -32,8 +32,8 @@ public class User {
     @OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
     private List<Order> orders=new ArrayList<>();
 
-    @OneToOne(mappedBy = "user")
-    private Cart cart;
+//    @OneToOne(mappedBy = "user")
+//    private Cart cart;
 
     @Builder
     public User(Long id, String email, String name, String password, String address,
