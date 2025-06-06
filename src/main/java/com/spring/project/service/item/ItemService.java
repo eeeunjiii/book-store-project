@@ -51,6 +51,16 @@ public class ItemService {
         return itemRepository.findAll(pageable);
     }
 
+    public synchronized void reduceItemStock(Item item, int quantity) {
+        int newStock;
+        if(item.getStock()-quantity>=0) {
+            newStock=item.getStock()-quantity;
+        } else {
+            newStock=item.getStock();
+        }
+        item.updateItem(item.getTitle(), item.getAuthor(), item.getPrice(), newStock);
+    }
+
     public List<Item> findItemByAuthor(String author) {
         return itemRepository.findByAuthor(author);
     }

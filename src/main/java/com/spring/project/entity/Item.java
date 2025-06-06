@@ -17,10 +17,11 @@ public class Item {
     private String publisher;
     private Integer publish_year;
     private Integer price;
-    private Integer stock;
+    private int stock;
 
     @Builder
-    public Item(Long id, String title, String author, String publisher, Integer publish_year, Integer price, Integer stock){
+    public Item(Long id, String title, String author, String publisher,
+                Integer publish_year, Integer price, int stock){
         this.id=id;
         this.title=title;
         this.author=author;
@@ -30,7 +31,7 @@ public class Item {
         this.stock=stock;
     }
 
-    public void updateItem(String title, String author, Integer price, Integer stock) {
+    public void updateItem(String title, String author, Integer price, int stock) {
         this.title=title;
         this.author=author;
         this.price=price;

@@ -48,6 +48,8 @@ public class OrderService {
         order.updateTotalPrice(totalPrice);
         orderRepository.save(order);
 
+        itemService.reduceItemStock(item, quantity);
+
         return order;
     }
 
@@ -65,6 +67,8 @@ public class OrderService {
             OrderItem orderItem = dto.toEntity(order, item);
             orderItemRepository.save(orderItem);
             order.getOrderItems().add(orderItem);
+
+            itemService.reduceItemStock(item, dto.getQuantity());
         }
         order.updateTotalPrice(totalPrice);
         orderRepository.save(order);
