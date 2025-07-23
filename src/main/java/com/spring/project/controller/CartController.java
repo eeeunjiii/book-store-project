@@ -32,9 +32,7 @@ public class CartController {
 
     @GetMapping("/{userId}/cart")
     public String cartForm(@PathVariable("userId") Long userId,
-                           @AuthenticationPrincipal PrincipalDetails principal, Model model) {
-        User user = userService.findUserByEmail(principal.getUsername());
-
+                           Model model) {
         Cart cart=cartService.findCartByUserId(userId);
         List<CartItem> cartItems = cartItemService.findCartItemsByCart(cart);
 
@@ -44,7 +42,6 @@ public class CartController {
         }
 
         model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("user", user);
         model.addAttribute("cartItems", cartItems);
 
         return "user/cartForm";

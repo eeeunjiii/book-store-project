@@ -41,21 +41,17 @@ public class OrderController {
     }
 
     @GetMapping("/items/order")
-    public String orderFormFromItem(Model model, @RequestParam("itemId") Long itemId,
-                                    @RequestParam("quantity") int quantity,
-                                    @AuthenticationPrincipal PrincipalDetails principal) {
-        User user=userService.findUserByEmail(principal.getUsername());
-        Item item=itemService.findById(itemId);
+        public String orderFormFromItem(Model model, @RequestParam("itemId") Long itemId,
+                                        @RequestParam("quantity") int quantity) {
+            Item item=itemService.findById(itemId);
 
-        model.addAttribute("user", user);
-        model.addAttribute("userPoint", user.getPoint());
-        model.addAttribute("item", item);
-        model.addAttribute("quantity", quantity);
-        model.addAttribute("totalPrice", quantity*item.getPrice());
-        model.addAttribute("infoForm", new OrderInfoDto());
+            model.addAttribute("item", item);
+            model.addAttribute("quantity", quantity);
+            model.addAttribute("totalPrice", quantity*item.getPrice());
+            model.addAttribute("infoForm", new OrderInfoDto());
 
-        return "items/orderFromItemForm";
-    }
+            return "items/orderFromItemForm";
+        }
 
     @PostMapping("/items/order")
     public String createOrderFromItem(@AuthenticationPrincipal PrincipalDetails principal,
@@ -91,21 +87,16 @@ public class OrderController {
     }
 
     @GetMapping("/{userId}/order/{orderId}")
-    public String orderDetailsForm(Model model, @AuthenticationPrincipal PrincipalDetails principal,
-                                   @PathVariable("orderId") Long orderId) {
-        User user=userService.findUserByEmail(principal.getUsername());
-
+    public String orderDetailsForm(Model model, @PathVariable("orderId") Long orderId) {
         List<OrderItem> orderItems=orderItemService.findOrderItemListByOrderId(orderId);
 
-        model.addAttribute("user", user);
         model.addAttribute("orderItems", orderItems);
 
         return "/user/orderItemForm";
     }
 
     @GetMapping("/items/cart/order")
-    public String orderFormFromCart(Model model, @AuthenticationPrincipal PrincipalDetails principal, HttpSession session) { // 아직 OrderItem으로 저장하기 전 -> dto로 미리 주문 내역 출력
-        User user=userService.findUserByEmail(principal.getUsername());
+    public String orderFormFromCart(Model model, HttpSession session) { // 아직 OrderItem으로 저장하기 전 -> dto로 미리 주문 내역 출력
         List<OrderItemDto> orderItemDtoList=(List<OrderItemDto>) session.getAttribute("orderItems");
 
         int totalPrice=0;
@@ -117,8 +108,6 @@ public class OrderController {
         model.addAttribute("cartItems", orderItemDtoList);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("infoForm", new OrderInfoDto());
-        model.addAttribute("user", user);
-        model.addAttribute("userPoint", user.getPoint());
 
         return "items/orderFromCartForm";
     }
