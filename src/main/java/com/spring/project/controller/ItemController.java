@@ -1,15 +1,14 @@
 package com.spring.project.controller;
 
 import com.spring.project.entity.Item;
-import com.spring.project.entity.User;
 import com.spring.project.request.ItemDto;
-import com.spring.project.security.PrincipalDetails;
 import com.spring.project.service.item.ItemService;
-import com.spring.project.service.member.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ItemController {
 
     private final ItemService itemService;
-    private final UserService userService;
 
     @GetMapping("/manager/new")
     public String addItemForm(Model model) {
@@ -76,37 +74,35 @@ public class ItemController {
     }
 
     @GetMapping("/items/{itemId}")
-    public String item(@PathVariable("itemId") Long itemId, Model model,
-                       @AuthenticationPrincipal PrincipalDetails principal) {
+    public String item(@PathVariable("itemId") Long itemId, Model model) {
         Item item=itemService.findById(itemId);
 
         if(item==null) {
             throw new IllegalStateException("존재하지 않는 도서입니다.");
         }
 
-        if(principal!=null) {
-            User user=userService.findUserByEmail(principal.getUsername());
-            model.addAttribute("item", item);
-            model.addAttribute("user", user);
-        }
-        else {
-            model.addAttribute("item", item);
-        }
+        model.addAttribute("item", item);
         return "items/item";
     }
 
     @GetMapping("/items")
-    public String items(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-                        @AuthenticationPrincipal PrincipalDetails principal) {
+    public String items(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<Item> paging=itemService.findAll(page);
 
-        if(principal!=null) {
-            User user=userService.findUserByEmail(principal.getUsername());
-            model.addAttribute("paging", paging);
-            model.addAttribute("user", user);
-        } else {
-            model.addAttribute("paging", paging);
-        }
+        model.addAttribute("paging", paging);
+
         return "items/items";
+    }
+
+    @GetMapping("/items/search")
+    public String search(@RequestParam(value = "category", defaultValue = "title") String category,
+                         @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                         @PageableDefault(sort = "id", size= 10, direction = Sort.Direction.ASC) Pageable pageable,
+                         Model model) {
+        Page<Item> searchList=itemService.search(category, keyword, pageable);
+        model.addAttribute("paging", searchList);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("category", category);
+        return "/items/items";
     }
 }

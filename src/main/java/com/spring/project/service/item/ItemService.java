@@ -61,7 +61,9 @@ public class ItemService {
         item.updateItem(item.getTitle(), item.getAuthor(), item.getPrice(), newStock);
     }
 
-    public List<Item> findItemByAuthor(String author) {
-        return itemRepository.findByAuthor(author);
+    @Transactional
+    public Page<Item> search(String category, String keyword, Pageable pageable) {
+        Page<Item> items=itemRepository.search(category, keyword, pageable);
+        return items;
     }
 }

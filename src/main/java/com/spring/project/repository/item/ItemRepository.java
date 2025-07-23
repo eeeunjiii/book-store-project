@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, Long>, ItemCustomRepository {
     List<Item> findByTitle(String title);
-    List<Item> findByAuthor(String author);
     Page<Item> findAll(Pageable pageable);
+    Page<Item> findByTitleContaining(String keyword, Pageable pageable);
 }
